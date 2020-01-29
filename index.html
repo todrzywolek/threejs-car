@@ -127,7 +127,7 @@
             var woodMaterial = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture('images/wood.jpg') });
 
             var moveZ = 6000;
-            var moveY = 2000;
+            var moveY = 0;
             var moveX = 2000;
             for (var i = 0; i < 5; i++) {
                 var building = new THREE.Mesh(geometry, crateMaterial);
@@ -150,9 +150,9 @@
             // prism
             var shape = THREE.SceneUtils.createMultiMaterialObject(
                 // radiusAtTop, radiusAtBottom, height, segmentsAroundRadius, segmentsAlongHeight,
-                new THREE.CylinderGeometry(200, 600, 1500, 10, 10),
+                new THREE.CylinderGeometry(2000, 6000, 15000, 100, 100),
                 prismMultiMaterial);
-            shape.position.set(4500, 4500, -1000);
+            shape.position.set(4500, 0, -1000);
             scene.add(shape);
 
             // cone - truncated
@@ -160,7 +160,7 @@
                 // radiusAtTop, radiusAtBottom, height, segmentsAroundRadius, segmentsAlongHeight,
                 new THREE.CylinderGeometry(500, 800, 1400, 20, 4),
                 woodMultiMaterial);
-            shape.position.set(-4000, 4000, -1000);
+            shape.position.set(-4000, 0, -1000);
             scene.add(shape);
 
             // pyramid - truncated
@@ -168,7 +168,7 @@
                 // radiusAtTop, radiusAtBottom, height, segmentsAroundRadius, segmentsAlongHeight,
                 new THREE.CylinderGeometry(500, 1000, 1300, 6, 4),
                 sandMultiMaterial);
-            shape.position.set(-1000, 5000, -200);
+            shape.position.set(-1000, 0, -200);
             scene.add(shape);
         }
 

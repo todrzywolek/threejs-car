@@ -46,7 +46,6 @@
         });
 
         function init() {
-            console.log("w init");
             scene = new THREE.Scene();
 
             addCamera();
@@ -191,10 +190,10 @@
                 if (keyDown[39]) car.rotation.y -= 0.05;
             }
 
-            if (keyDown[32]) {
+            if (keyDown[32] && car.position.y < 40000) {
                 car.position.y += 100;
                 camera.position.y += 100;
-            } else if (keyDown[67]) {
+            } else if (keyDown[67] && car.position.y > 0) {
                 car.position.y -= 100;
                 camera.position.y -= 100;
             }

@@ -177,7 +177,7 @@
             requestAnimationFrame(render);
 
             if (keyDown[38]) { // up arrow - speed up
-                if (speed < 130) {
+                if (speed < 300) {
                     speed += 1;
                 }
             } else if (keyDown[40]) { // down arrow - slow down
@@ -187,11 +187,31 @@
                 if (speed < 0) speed = 0;
             }
             if (speed > 0) { // turn only when driving
-                if (keyDown[37]) car.rotation.y += 0.05;
-                if (keyDown[39]) car.rotation.y -= 0.05;
+                if (keyDown[37]) {
+                    car.rotation.y += 0.05;
+                    if (car.rotation.z > -0.50 && car.position.y > 0) {
+                        car.rotation.z -= 0.05;
+                    }
+                } else {
+                    if (car.rotation.z < 0) {
+                        car.rotation.z += 0.05;
+                    }
+                }
+
+
+                if (keyDown[39]) {
+                    car.rotation.y -= 0.05;
+                    if (car.rotation.z < 0.50 && car.position.y > 0) {
+                        car.rotation.z += 0.05;
+                    }
+                } else {
+                    if (car.rotation.z > 0) {
+                        car.rotation.z -= 0.05;
+                    }
+                }
             }
 
-            if (keyDown[32] && car.position.y < 40000 && speed > 100) { // spacebar - fly only when speed > 1000
+            if (keyDown[32] && car.position.y < 40000 && speed > 200) { // spacebar - fly only when speed > 1000
                 car.position.y += 100;
                 camera.position.y += 100;
             } else if (keyDown[67] && car.position.y > 0) { // c button - go down
@@ -199,7 +219,7 @@
                 camera.position.y -= 100;
             }
 
-            if (speed < 50 && car.position.y > 0) { // if speed < 50 go down
+            if (speed < 100 && car.position.y > 0) { // if speed < 50 go down
                 car.position.y -= 100;
                 car.position.x += 50;
                 camera.position.y -= 100;

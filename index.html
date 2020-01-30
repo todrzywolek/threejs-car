@@ -134,6 +134,7 @@
                 building.position.z = moveZ;
                 building.position.y = moveY;
                 building.position.x = moveX;
+                //building.scale.x = building.scale.y = building.scale.z = 3;
 
                 moveX += 1000;
                 moveY += 500;
@@ -152,15 +153,15 @@
                 // radiusAtTop, radiusAtBottom, height, segmentsAroundRadius, segmentsAlongHeight,
                 new THREE.CylinderGeometry(2000, 6000, 15000, 100, 100),
                 prismMultiMaterial);
-            shape.position.set(4500, 0, -1000);
+            shape.position.set(10000, 0, -1000);
             scene.add(shape);
 
             // cone - truncated
             var shape = THREE.SceneUtils.createMultiMaterialObject(
                 // radiusAtTop, radiusAtBottom, height, segmentsAroundRadius, segmentsAlongHeight,
-                new THREE.CylinderGeometry(500, 800, 1400, 20, 4),
+                new THREE.CylinderGeometry(5000, 8000, 14000, 20, 4),
                 woodMultiMaterial);
-            shape.position.set(-4000, 0, -1000);
+            shape.position.set(-13000, 0, -1000);
             scene.add(shape);
 
             // pyramid - truncated
@@ -168,39 +169,45 @@
                 // radiusAtTop, radiusAtBottom, height, segmentsAroundRadius, segmentsAlongHeight,
                 new THREE.CylinderGeometry(500, 1000, 1300, 6, 4),
                 sandMultiMaterial);
-            shape.position.set(-1000, 0, -200);
+            shape.position.set(-10000, 0, -2000);
             scene.add(shape);
         }
 
         function render() {
             requestAnimationFrame(render);
 
-            if (keyDown[38]) {
+            if (keyDown[38]) { // up arrow - speed up
                 if (speed < 130) {
                     speed += 1;
                 }
-            } else if (keyDown[40]) {
+            } else if (keyDown[40]) { // down arrow - slow down
                 if (speed > 0) speed -= 2;
-            } else {
+            } else { // slow down when engine down
                 speed -= 1;
                 if (speed < 0) speed = 0;
             }
-            if (speed > 0) {
+            if (speed > 0) { // turn only when driving
                 if (keyDown[37]) car.rotation.y += 0.05;
                 if (keyDown[39]) car.rotation.y -= 0.05;
             }
 
-            if (keyDown[32] && car.position.y < 40000) {
+            if (keyDown[32] && car.position.y < 40000 && speed > 100) { // spacebar - fly only when speed > 1000
                 car.position.y += 100;
                 camera.position.y += 100;
-            } else if (keyDown[67] && car.position.y > 0) {
+            } else if (keyDown[67] && car.position.y > 0) { // c button - go down
                 car.position.y -= 100;
                 camera.position.y -= 100;
             }
 
-            if (keyDown[81]) {
+            if (speed < 50 && car.position.y > 0) { // if speed < 50 go down
+                car.position.y -= 100;
+                car.position.x += 50;
+                camera.position.y -= 100;
+            }
+
+            if (keyDown[81]) { // press Q - bend vehicle left
                 car.rotation.z -= 0.05;
-            } else if (keyDown[69]) {
+            } else if (keyDown[69]) { // press E - bend vehicle right
                 car.rotation.z += 0.05;
             }
 
